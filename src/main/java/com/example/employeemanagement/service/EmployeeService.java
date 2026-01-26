@@ -32,7 +32,7 @@ public class EmployeeService {
     public List<EmployeeSummaryDto> getAll(Long orgId) {
         return employeeRepo.findByOrganizationId(orgId)
                 .stream()
-                .map(e -> new EmployeeSummaryDto(e.getId(), e.getName(), e.getEmail()))
+                .map(e -> new EmployeeSummaryDto(e.getId(), e.getName(), e.getEmail(),e.getCreatedAt(),e.getUpdatedAt()))
                 .toList();
     }
 

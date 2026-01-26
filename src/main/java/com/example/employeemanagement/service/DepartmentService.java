@@ -37,7 +37,7 @@ public class DepartmentService {
                 d.getId(),
                 d.getName(),
                 d.getEmployees().stream()
-                        .map(e -> new EmployeeSummaryDto(e.getId(), e.getName(), e.getEmail()))
+                        .map(e -> new EmployeeSummaryDto(e.getId(), e.getName(), e.getEmail(), e.getCreatedAt(), e.getUpdatedAt()))
                         .toList()
         );
     }
