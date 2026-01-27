@@ -39,10 +39,7 @@ public class ProjectsController {
         service.update(id, dto);
     }
 
-    @PatchMapping("/{id}/employees")
-    public void updateEmployees(@PathVariable Long id, @RequestBody Set<Long> empIds) {
-        service.updateEmployees(id, empIds);
-    }
+
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {

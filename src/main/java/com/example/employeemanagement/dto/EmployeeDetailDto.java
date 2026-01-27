@@ -17,8 +17,8 @@ public class EmployeeDetailDto {
     private String organizationName;
     private Set<String> departments;
     private Set<String> projects;
-//    private LocalDateTime createdAt;  // timestamp of creation
-//    private LocalDateTime updatedAt;  // timestamp of last update
+    private LocalDateTime createdAt;  // timestamp of creation
+    private LocalDateTime updatedAt;  // timestamp of last update
 
 }
 

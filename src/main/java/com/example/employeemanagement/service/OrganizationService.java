@@ -1,5 +1,4 @@
 package com.example.employeemanagement.service;
-
 import com.example.employeemanagement.dto.OrganizationCountDto;
 import com.example.employeemanagement.dto.OrganizationCreateDto;
 import com.example.employeemanagement.dto.OrganizationDetailDto;
@@ -28,7 +27,9 @@ public class OrganizationService {
                         o.getName(),
                         o.getEmployees().size(),
                         o.getDepartments().size(),
-                        o.getProjects().size()))
+                        o.getProjects().size(),
+                        o.getCreatedAt(),
+                        o.getUpdatedAt()))
                 .toList();
     }
 
@@ -38,13 +39,17 @@ public class OrganizationService {
                 o.getId(),
                 o.getName(),
                 o.getDepartments().stream().map(Department::getName).toList(),
-                o.getProjects().stream().map(Projects::getName).toList()
+                o.getProjects().stream().map(Projects::getName).toList(),
+                o.getCreatedAt(),
+                o.getUpdatedAt()
         );
     }
 
     public Organization create(OrganizationCreateDto dto) {
         Organization o = new Organization();
         o.setName(dto.getName());
+        o.setCreatedAt(dto.getCreatedAt());
+        o.setUpdatedAt(dto.getUpdatedAt());
         return orgRepo.save(o);
     }
 

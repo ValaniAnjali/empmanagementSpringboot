@@ -27,7 +27,7 @@ public class DepartmentService {
         return deptRepo.findByOrganizationId(orgId)
                 .stream()
                 .map(d -> new DepartmentSummaryDto(
-                        d.getId(), d.getName(), d.getEmployees().size()))
+                        d.getId(), d.getName(), d.getEmployees().size(),d.getCreatedAt(),d.getUpdatedAt()))
                 .toList();
     }
 
@@ -38,7 +38,9 @@ public class DepartmentService {
                 d.getName(),
                 d.getEmployees().stream()
                         .map(e -> new EmployeeSummaryDto(e.getId(), e.getName(), e.getEmail(), e.getCreatedAt(), e.getUpdatedAt()))
-                        .toList()
+                        .toList(),
+                d.getCreatedAt(),
+                d.getUpdatedAt()
         );
     }
 
@@ -47,6 +49,8 @@ public class DepartmentService {
         Department d = new Department();
         d.setName(dto.getName());
         d.setOrganization(org);
+        d.setCreatedAt(dto.getCreatedAt());
+        d.setUpdatedAt(dto.getUpdatedAt());
         return deptRepo.save(d);
     }
 
@@ -55,10 +59,6 @@ public class DepartmentService {
         d.setName(dto.getName());
     }
 
-    public void updateEmployees(Long id, Set<Long> empIds) {
-        Department d = deptRepo.findById(id).orElseThrow();
-        d.setEmployees(new HashSet<>(empRepo.findAllById(empIds)));
-    }
 
     public void delete(Long id) {
         deptRepo.deleteById(id);

@@ -3,7 +3,10 @@ package com.example.employeemanagement.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -27,5 +30,10 @@ public class Organization {
     @OneToMany(mappedBy = "organization",cascade = CascadeType.REMOVE)
     private List<Projects> projects=new ArrayList<>();
 
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
 }

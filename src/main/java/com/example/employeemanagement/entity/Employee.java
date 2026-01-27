@@ -20,7 +20,15 @@ import java.util.Set;
 @AllArgsConstructor
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "employee_seq_gen"
+    )
+    @SequenceGenerator(
+            name = "employee_seq_gen",
+            sequenceName = "employee_seq",
+            allocationSize = 50   // ⭐ important
+    )
     private Long id;
 
     @Column(name = "name")
@@ -42,19 +50,19 @@ public class Employee {
 
     @ManyToMany
     @JoinTable(
-            name="employee_projects",
+            name = "employee_projects",
             joinColumns = @JoinColumn(name = "employee_id"),
-            inverseJoinColumns = @JoinColumn(name="project_id")
+            inverseJoinColumns = @JoinColumn(name = "project_id")
     )
-    private Set<Projects> projects=new HashSet<>();
+    private Set<Projects> projects = new HashSet<>();
 
 
     @ManyToMany
     @JoinTable(
-            name="employee_departments",
-            joinColumns = @JoinColumn(name="employee_id"),
-            inverseJoinColumns = @JoinColumn(name="department_id")
+            name = "employee_departments",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "department_id")
     )
-    private Set<Department> departments=new HashSet<>();
+    private Set<Department> departments = new HashSet<>();
 
 }

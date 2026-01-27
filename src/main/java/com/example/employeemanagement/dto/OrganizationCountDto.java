@@ -3,6 +3,8 @@ package com.example.employeemanagement.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 public class OrganizationCountDto {
@@ -11,5 +13,8 @@ public class OrganizationCountDto {
     private long employeeCount;
     private long departmentCount;
     private long projectCount;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
 }
 

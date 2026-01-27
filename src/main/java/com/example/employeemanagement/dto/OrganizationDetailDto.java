@@ -3,6 +3,7 @@ package com.example.employeemanagement.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -12,4 +13,6 @@ public class OrganizationDetailDto {
     private String name;
     private List<String> departments;
     private List<String> projects;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

@@ -49,6 +49,7 @@ public class ProjectService {
         p.setName(dto.getName());
         p.setOrganization(org);
 
+
         if (dto.getEmployeeIds() != null)
             p.setEmployees(new HashSet<>(empRepo.findAllById(dto.getEmployeeIds())));
 
@@ -60,10 +61,7 @@ public class ProjectService {
         p.setName(dto.getName());
     }
 
-    public void updateEmployees(Long id, Set<Long> empIds) {
-        Projects p = projectRepo.findById(id).orElseThrow();
-        p.setEmployees(new HashSet<>(empRepo.findAllById(empIds)));
-    }
+
 
     public void delete(Long id) {
         projectRepo.deleteById(id);

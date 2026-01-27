@@ -4,6 +4,7 @@ import com.example.employeemanagement.dto.*;
 import com.example.employeemanagement.entity.Employee;
 import com.example.employeemanagement.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,8 +23,14 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public EmployeeDetailDto get(@PathVariable Long id) {
-        return service.get(id);
+    public ResponseEntity<?> get(@PathVariable Long id) {
+//       try{
+//           return ResponseEntity.ok(service.get(id));
+//       }catch (Exception e){
+//           return ResponseEntity.status(400).body("No such id exist");
+//       }
+        return ResponseEntity.ok(service.get(id));
+
     }
 
     @PostMapping
@@ -36,10 +43,6 @@ public class EmployeeController {
         service.update(id, dto);
     }
 
-    @PatchMapping("/{id}/department")
-    public void updateDepartments(@PathVariable Long id, @RequestBody Set<Long> deptIds) {
-        service.updateDepartments(id, deptIds);
-    }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
