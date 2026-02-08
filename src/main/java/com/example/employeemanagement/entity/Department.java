@@ -25,7 +25,6 @@ public class Department {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
     private String name;
 
     @ManyToOne(optional = false)

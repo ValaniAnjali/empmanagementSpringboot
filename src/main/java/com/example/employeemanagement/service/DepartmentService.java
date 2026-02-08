@@ -8,6 +8,7 @@ import com.example.employeemanagement.repository.EmployeeRepository;
 import com.example.employeemanagement.repository.OrganizationRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -21,13 +22,12 @@ public class DepartmentService {
 
     private final DepartmentRepository deptRepo;
     private final OrganizationRepository orgRepo;
-    private final EmployeeRepository empRepo;
 
     public List<DepartmentSummaryDto> getAll(Long orgId) {
-        return deptRepo.findByOrganizationId(orgId)
-                .stream()
-                .map(d -> new DepartmentSummaryDto(
-                        d.getId(), d.getName(), d.getEmployees().size(),d.getCreatedAt(),d.getUpdatedAt()))
+        List<Department> departments = deptRepo.findByOrganizationId(orgId);
+
+        return departments.stream()
+                .map(d -> new DepartmentSummaryDto(d.getId(), d.getName(), d.getEmployees().size(), d.getCreatedAt(), d.getUpdatedAt()))
                 .toList();
     }
 

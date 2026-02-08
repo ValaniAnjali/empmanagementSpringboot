@@ -60,7 +60,7 @@ public class EmployeeService {
         e.setOrganization(org);
         e.setCreatedAt(dto.getCreatedAt());
         e.setUpdatedAt(dto.getUpdatedAt());
-
+           //set<Long>
         if (dto.getDepartmentIds() != null && !dto.getDepartmentIds().isEmpty()) {
             Set<Department> departments = new HashSet<>(deptRepo.findAllById(dto.getDepartmentIds()));
 

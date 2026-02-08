@@ -27,7 +27,7 @@ public class Employee {
     @SequenceGenerator(
             name = "employee_seq_gen",
             sequenceName = "employee_seq",
-            allocationSize = 50   // ⭐ important
+            allocationSize = 50
     )
     private Long id;
 
