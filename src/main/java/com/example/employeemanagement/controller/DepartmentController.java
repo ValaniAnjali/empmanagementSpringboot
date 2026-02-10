@@ -6,6 +6,7 @@ import com.example.employeemanagement.dto.DepartmentSummaryDto;
 import com.example.employeemanagement.dto.DepartmentUpdateDto;
 import com.example.employeemanagement.entity.Department;
 import com.example.employeemanagement.service.DepartmentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +31,7 @@ public class DepartmentController {
     }
 
     @PostMapping
-    public Department create(@RequestBody DepartmentCreateDto dto) {
+    public Department create(@Valid @RequestBody DepartmentCreateDto dto) {
         return service.create(dto);
     }
 

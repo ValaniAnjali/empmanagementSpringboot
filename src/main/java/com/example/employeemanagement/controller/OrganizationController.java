@@ -6,6 +6,7 @@ import com.example.employeemanagement.dto.OrganizationDetailDto;
 import com.example.employeemanagement.dto.OrganizationUpdateDto;
 import com.example.employeemanagement.entity.Organization;
 import com.example.employeemanagement.service.OrganizationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class OrganizationController {
     }
 
     @PostMapping
-    public Organization create(@RequestBody OrganizationCreateDto dto) {
+    public Organization create(@Valid @RequestBody OrganizationCreateDto dto) {
         return service.create(dto);
     }
 

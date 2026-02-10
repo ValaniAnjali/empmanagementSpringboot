@@ -18,47 +18,47 @@ import java.util.List;
 @Transactional
 public class OrganizationService {
 
-    private final OrganizationRepository orgRepo;
+    private final OrganizationRepository organizationRepository;
 
     public List<OrganizationCountDto> getAll() {
-        return orgRepo.findAll().stream()
-                .map(o -> new OrganizationCountDto(
-                        o.getId(),
-                        o.getName(),
-                        o.getEmployees().size(),
-                        o.getDepartments().size(),
-                        o.getProjects().size(),
-                        o.getCreatedAt(),
-                        o.getUpdatedAt()))
+        return organizationRepository.findAll().stream()
+                .map(org -> new OrganizationCountDto(
+                        org.getId(),
+                        org.getName(),
+                        org.getEmployees().size(),
+                        org.getDepartments().size(),
+                        org.getProjects().size(),
+                        org.getCreatedAt(),
+                        org.getUpdatedAt()))
                 .toList();
     }
 
     public OrganizationDetailDto get(Long id) {
-        Organization o = orgRepo.findById(id).orElseThrow();
+        Organization org = organizationRepository.findById(id).orElseThrow();
         return new OrganizationDetailDto(
-                o.getId(),
-                o.getName(),
-                o.getDepartments().stream().map(Department::getName).toList(),
-                o.getProjects().stream().map(Projects::getName).toList(),
-                o.getCreatedAt(),
-                o.getUpdatedAt()
+                org.getId(),
+                org.getName(),
+                org.getDepartments().stream().map(Department::getName).toList(),
+                org.getProjects().stream().map(Projects::getName).toList(),
+                org.getCreatedAt(),
+                org.getUpdatedAt()
         );
     }
 
     public Organization create(OrganizationCreateDto dto) {
-        Organization o = new Organization();
-        o.setName(dto.getName());
-        o.setCreatedAt(dto.getCreatedAt());
-        o.setUpdatedAt(dto.getUpdatedAt());
-        return orgRepo.save(o);
+        Organization org = new Organization();
+        org.setName(dto.getName());
+        org.setCreatedAt(dto.getCreatedAt());
+        org.setUpdatedAt(dto.getUpdatedAt());
+        return organizationRepository.save(org);
     }
 
     public void update(Long id, OrganizationUpdateDto dto) {
-        Organization o = orgRepo.findById(id).orElseThrow();
-        o.setName(dto.getName());
+        Organization org = organizationRepository.findById(id).orElseThrow();
+        org.setName(dto.getName());
     }
 
     public void delete(Long id) {
-        orgRepo.deleteById(id);
+        organizationRepository.deleteById(id);
     }
 }

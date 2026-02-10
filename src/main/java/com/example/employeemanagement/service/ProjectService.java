@@ -26,18 +26,18 @@ public class ProjectService {
     public List<ProjectSummaryDto> getAll(Long orgId) {
         return projectRepo.findByOrganizationId(orgId)
                 .stream()
-                .map(p -> new ProjectSummaryDto(
-                        p.getId(), p.getName(), p.getEmployees().size()))
+                .map(project -> new ProjectSummaryDto(
+                        project.getId(), project.getName(), project.getEmployees().size()))
                 .toList();
     }
 
     public ProjectDetailDto get(Long id) {
-        Projects p = projectRepo.findById(id).orElseThrow();
+        Projects project = projectRepo.findById(id).orElseThrow();
         return new ProjectDetailDto(
-                p.getId(),
-                p.getName(),
-                p.getEmployees().stream()
-                        .map(e -> new EmployeeSummaryDto(e.getId(), e.getName(), e.getEmail(),e.getCreatedAt(),e.getUpdatedAt()))
+                project.getId(),
+                project.getName(),
+                project.getEmployees().stream()
+                        .map(emp -> new EmployeeSummaryDto(emp.getId(), emp.getName(), emp.getEmail(),emp.getCreatedAt(),emp.getUpdatedAt()))
                         .toList()
         );
     }
@@ -45,20 +45,20 @@ public class ProjectService {
     public Projects create(ProjectCreateDto dto) {
         Organization org = orgRepo.findById(dto.getOrganizationId()).orElseThrow();
 
-        Projects p = new Projects();
-        p.setName(dto.getName());
-        p.setOrganization(org);
+        Projects project = new Projects();
+        project.setName(dto.getName());
+        project.setOrganization(org);
 
 
         if (dto.getEmployeeIds() != null)
-            p.setEmployees(new HashSet<>(empRepo.findAllById(dto.getEmployeeIds())));
+            project.setEmployees(new HashSet<>(empRepo.findAllById(dto.getEmployeeIds())));
 
-        return projectRepo.save(p);
+        return projectRepo.save(project);
     }
 
     public void update(Long id, ProjectUpdateDto dto) {
-        Projects p = projectRepo.findById(id).orElseThrow();
-        p.setName(dto.getName());
+        Projects project = projectRepo.findById(id).orElseThrow();
+        project.setName(dto.getName());
     }
 
 

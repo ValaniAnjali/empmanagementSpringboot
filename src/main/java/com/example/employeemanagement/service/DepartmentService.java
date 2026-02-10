@@ -27,36 +27,36 @@ public class DepartmentService {
         List<Department> departments = deptRepo.findByOrganizationId(orgId);
 
         return departments.stream()
-                .map(d -> new DepartmentSummaryDto(d.getId(), d.getName(), d.getEmployees().size(), d.getCreatedAt(), d.getUpdatedAt()))
+                .map(dept -> new DepartmentSummaryDto(dept.getId(), dept.getName(), dept.getEmployees().size(), dept.getCreatedAt(), dept.getUpdatedAt()))
                 .toList();
     }
 
     public DepartmentDetailDto get(Long id) {
-        Department d = deptRepo.findById(id).orElseThrow();
+        Department dept = deptRepo.findById(id).orElseThrow();
         return new DepartmentDetailDto(
-                d.getId(),
-                d.getName(),
-                d.getEmployees().stream()
-                        .map(e -> new EmployeeSummaryDto(e.getId(), e.getName(), e.getEmail(), e.getCreatedAt(), e.getUpdatedAt()))
+                dept.getId(),
+                dept.getName(),
+                dept.getEmployees().stream()
+                        .map(emp -> new EmployeeSummaryDto(emp.getId(), emp.getName(), emp.getEmail(), emp.getCreatedAt(), emp.getUpdatedAt()))
                         .toList(),
-                d.getCreatedAt(),
-                d.getUpdatedAt()
+                dept.getCreatedAt(),
+                dept.getUpdatedAt()
         );
     }
 
     public Department create(DepartmentCreateDto dto) {
         Organization org = orgRepo.findById(dto.getOrganizationId()).orElseThrow();
-        Department d = new Department();
-        d.setName(dto.getName());
-        d.setOrganization(org);
-        d.setCreatedAt(dto.getCreatedAt());
-        d.setUpdatedAt(dto.getUpdatedAt());
-        return deptRepo.save(d);
+        Department dept = new Department();
+        dept.setName(dto.getName());
+        dept.setOrganization(org);
+        dept.setCreatedAt(dto.getCreatedAt());
+        dept.setUpdatedAt(dto.getUpdatedAt());
+        return deptRepo.save(dept);
     }
 
     public void update(Long id, DepartmentUpdateDto dto) {
-        Department d = deptRepo.findById(id).orElseThrow();
-        d.setName(dto.getName());
+        Department dept = deptRepo.findById(id).orElseThrow();
+        dept.setName(dto.getName());
     }
 
 

@@ -6,6 +6,7 @@ import com.example.employeemanagement.dto.ProjectSummaryDto;
 import com.example.employeemanagement.dto.ProjectUpdateDto;
 import com.example.employeemanagement.entity.Projects;
 import com.example.employeemanagement.service.ProjectService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +31,7 @@ public class ProjectsController {
     }
 
     @PostMapping
-    public Projects create(@RequestBody ProjectCreateDto dto) {
+    public Projects create(@Valid @RequestBody ProjectCreateDto dto) {
         return service.create(dto);
     }
 

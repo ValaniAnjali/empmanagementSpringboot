@@ -28,25 +28,25 @@ public class EmployeeService {
     }
 
     public EmployeeDetailDto get(Long id) {
-        Employee e = employeeRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("No such id exist"));
+        Employee employee = employeeRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("No such id exist"));
 
         EmployeeDetailDto dto = new EmployeeDetailDto();
-        dto.setId(e.getId());
-        dto.setName(e.getName());
-        dto.setEmail(e.getEmail());
-        dto.setOrganizationName(e.getOrganization().getName());
+        dto.setId(employee.getId());
+        dto.setName(employee.getName());
+        dto.setEmail(employee.getEmail());
+        dto.setOrganizationName(employee.getOrganization().getName());
         dto.setDepartments(
-                e.getDepartments().stream()
+                employee.getDepartments().stream()
                         .map(Department::getName)
                         .collect(Collectors.toSet())
         );
         dto.setProjects(
-                e.getProjects().stream()
+                employee.getProjects().stream()
                         .map(Projects::getName)
                         .collect(Collectors.toSet())
         );
-        dto.setCreatedAt(e.getCreatedAt());
-        dto.setUpdatedAt(e.getUpdatedAt());
+        dto.setCreatedAt(employee.getCreatedAt());
+        dto.setUpdatedAt(employee.getUpdatedAt());
 
         return dto;
     }
@@ -54,12 +54,12 @@ public class EmployeeService {
     public Employee create(EmployeeCreateDTO dto) {
         Organization org = orgRepo.findById(dto.getOrganizationId()).orElseThrow();
 
-        Employee e = new Employee();
-        e.setName(dto.getName());
-        e.setEmail(dto.getEmail());
-        e.setOrganization(org);
-        e.setCreatedAt(dto.getCreatedAt());
-        e.setUpdatedAt(dto.getUpdatedAt());
+        Employee employee = new Employee();
+        employee.setName(dto.getName());
+        employee.setEmail(dto.getEmail());
+        employee.setOrganization(org);
+        employee.setCreatedAt(dto.getCreatedAt());
+        employee.setUpdatedAt(dto.getUpdatedAt());
            //set<Long>
         if (dto.getDepartmentIds() != null && !dto.getDepartmentIds().isEmpty()) {
             Set<Department> departments = new HashSet<>(deptRepo.findAllById(dto.getDepartmentIds()));
@@ -67,27 +67,27 @@ public class EmployeeService {
             if (departments.stream().anyMatch(d -> !d.getOrganization().getId().equals(org.getId())))
                 throw new RuntimeException("Department organization mismatch");
 
-            e.setDepartments(departments);
-            departments.forEach(d -> d.getEmployees().add(e));
+            employee.setDepartments(departments);
+            departments.forEach(dept -> dept.getEmployees().add(employee));
         }
 
         if (dto.getProjectIds() != null && !dto.getProjectIds().isEmpty()) {
             Set<Projects> projects = new HashSet<>(projectRepo.findAllById(dto.getProjectIds()));
 
-            if (projects.stream().anyMatch(p -> !p.getOrganization().getId().equals(org.getId())))
+            if (projects.stream().anyMatch(project -> !project.getOrganization().getId().equals(org.getId())))
                 throw new RuntimeException("Project organization mismatch");
 
-            e.setProjects(projects);
-            projects.forEach(p -> p.getEmployees().add(e));
+            employee.setProjects(projects);
+            projects.forEach(project -> project.getEmployees().add(employee));
         }
 
-        return employeeRepo.save(e);
+        return employeeRepo.save(employee);
     }
 
     public void update(Long id, EmployeeUpdateDto dto) {
-        Employee e = employeeRepo.findById(id).orElseThrow();
-        e.setName(dto.getName());
-        e.setEmail(dto.getEmail());
+        Employee employee = employeeRepo.findById(id).orElseThrow();
+        employee.setName(dto.getName());
+        employee.setEmail(dto.getEmail());
     }
 
 
