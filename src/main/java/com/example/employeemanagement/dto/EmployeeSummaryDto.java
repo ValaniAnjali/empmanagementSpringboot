@@ -11,6 +11,7 @@ public class EmployeeSummaryDto {
     private Long id;
     private String name;
     private String email;
+    private Long organizationId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

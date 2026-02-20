@@ -15,6 +15,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/projects")
+@CrossOrigin("http://localhost:5173/")
 @RequiredArgsConstructor
 public class ProjectsController {
 

@@ -20,10 +20,10 @@ public class EmployeeCreateDTO {
     @NotNull(message = "Organization ID is required")
     private Long organizationId;
 
-    @NotEmpty(message = "At least one department must be selected")
-    private Set<@NotNull Long> departmentIds;
+//    @NotEmpty(message = "At least one department must be selected")
+    private Set<Long> departmentIds;
 
-    private Set<@NotNull Long> projectIds;
+    private Set<Long> projectIds;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

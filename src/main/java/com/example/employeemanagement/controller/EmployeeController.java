@@ -14,6 +14,8 @@ import java.util.Set;
 @RestController
 @RequestMapping("/employees")
 @RequiredArgsConstructor
+//no access control allow origin header is present on the requested resource.
+@CrossOrigin("http://localhost:5173")
 public class EmployeeController {
 
     private final EmployeeService service;

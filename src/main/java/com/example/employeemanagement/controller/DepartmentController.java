@@ -16,6 +16,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/departments")
 @RequiredArgsConstructor
+@CrossOrigin("http://localhost:5173/")
 public class DepartmentController {
 
     private final DepartmentService service;

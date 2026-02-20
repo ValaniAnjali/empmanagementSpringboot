@@ -20,15 +20,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class Employee {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "employee_seq_gen"
-    )
-    @SequenceGenerator(
-            name = "employee_seq_gen",
-            sequenceName = "employee_seq",
-            allocationSize = 50
-    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "name")
